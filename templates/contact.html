@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <title>ContactUs | VegCorner</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/home">Veg Corner</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/home">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/about">AboutUs</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Dropdown
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="/men">Men</a></li>
+                  <li><a class="dropdown-item" href="/women">Women</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Home Accessories</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="contact">contact us</a>
+              </li>
+            </ul>
+            {% if user.is_authenticated %}
+            <button class="btn btn-outline-success" style='font-size:18px;margin-right:20px;' type="submit"><i class="fas fa-user"></i>     {{user.username}}</button>
+            <a href="logout"><button class="btn btn-outline-success" style='font-size:18px;margin-right:20px;' type="submit">Sign out   <i class="fas fa-sign-out-alt"></i></button></a>
+            {% else%}
+            <a href="login"><button class="btn btn-info" style="font-size:18px;margin-right:20px;" type="submit">Login  <i class="fas fa-sign-in-alt"></i></button></a>
+            <a href="register"><button class="btn btn-info" style="font-size:18px;margin-right:20px;" type="submit">SignUp  <i class="fas fa-user-plus"></i></button></a>
+            {% endif %}
+          </div>
+        </div>
+    </nav> 
+
+{% if messages %}
+{% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show my-0" role="alert">
+      <b>{{ message }}</b>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endfor %}
+{% endif %}
+<div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+  <div class="carousel-inner" >
+    <div class="carousel-item active" >
+      
+      <div class="contact">
+        <form method="post" action="/contact">
+          {% csrf_token %}
+          <div class="container">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                <div id="login-column" class="col-md-6">
+                    <div id="login-box" class="col-md-12">
+                        <form id="login-form" class="form" action="" method="post">
+                            {% csrf_token %}
+                            <br>
+                            <br>
+                            <h3 class="text-center text-info">Contact Us</h3>
+                            <div class="form-group">
+                              <label for="name" class="text-info">Name:</label><br>
+                              <input type="name" name="name" id="name" required class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="text-info">Email:</label><br>
+                                <input type="email" name="email" id="email" required class="form-control">
+                            </div>
+                            <div class="form-group">
+                              <label for="Phone" class="text-info">Phone Number:</label><br>
+                              <input type="tel" name="Phone" id="Phone" maxlength="10" pattern="[789][0-9]{9}" required   class="form-control">
+                            </div>
+                            <div class="form-group">
+                              <label for="text" class="text-info">Sugessions:</label>
+                              <textarea rows="4" cols="68" name="text" required></textarea>
+              
+                            </div>
+                            <div class="form-group" align="center" >
+                                <input type="submit" name="submit" class="btn btn-info btn-md" value="submit">
+                            </div>
+                            <br> 
+                            <br>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+          </form>
+        </div>
+    </div>
+    </div>
+    </div>
+</body>
+<!-- Footer -->
+<footer class="bg-dark text-center text-white">
+  <div class="container p-4">
+    <div class="text-center p-3" >
+      <strong>Reachout to us:</strong>
+      <br>
+      <br>
+      <strong>Email: </strong>
+      <a class="text-white" href="mailto:cs@VegCorner.com">cs@VegCorner.com</a>
+    </div>  
+  </div>
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    © 2020 Copyright
+    <a class="text-white"></a>
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->
+</html>
